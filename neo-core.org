@@ -1,0 +1,7 @@
+#+BEGIN_SRC sh :tangle SOMETHING
+pwd
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+    (message "core")
+#+END_SRC

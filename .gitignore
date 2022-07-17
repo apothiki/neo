@@ -1,3 +1,7 @@
+# Generated Files
+init.el
+early-init.el
+
 # Compiled
 *.elc
 
