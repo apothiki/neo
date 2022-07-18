@@ -13,7 +13,7 @@ remember to force myself, that's it.
     (magit-refs-show-commit-count 'branch) ; may be too expensive
     ; TODO: this should be the default behavior of magit-builtin-completing-read
     ; when ivy is enabed gobally. But I am not sure of what is the actual situation.
-    (magit-completing-read-function 'ivy-completing-read)
+    (magit-completing-read-function 'magit-builtin-completing-read) ; 'ivy-completing-read)
     :init
     ;; NOTE: order of functions in this hook is important, we make this clear with setq
     ;; instead of gambling with add-hook. There's magit-add-section-hook that might be better.
