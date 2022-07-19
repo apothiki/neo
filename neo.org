@@ -31,5 +31,8 @@ I mean, it is, but since it doesn't contain any elisp blocks, it is a no-op
 #+INCLUDE: "neo-litter.org"
 #+INCLUDE: "neo-completion.org"
 #+INCLUDE: "neo-git.org"
+#+INCLUDE: "neo-ui.org"
+
+#+INCLUDE: "neo-app-kubernetes.org"
 
 #+INCLUDE: "neo-todo.org"

@@ -1,0 +1,101 @@
+*** Fonts
+The following fragment will be used by ~scripts/install-fonts~. Don't run
+it blindly, as is it takes a lot of disk space (the google fonts
+alone, are 650MB when zipped and 1.5GB uncompressed; nobody really
+needs all of them). Unfortunately, I don't know of a scriptable way
+for downloading  individual families.
+
+Fragments labeled ~sh-install-fonts~ are executed in a temp directory,
+no need to cleanup.
+
+#+begin_src sh-install-fonts
+echo "Installing fonts"
+
+#echo "Google Web Fonts (650MB/1.5GB)"
+#wget https://github.com/google/fonts/archive/main.zip -q
+
+#Roboto
+#Roboto Condensed
+#Roboto Mono
+#Inconsolata
+#Source Sans Pro
+#Cabin (or Cabin Sketch)
+#Architects Daughter
+#FasterOne
+#GochiHand
+# YanoneKaffeesatz
+
+if [[ ! -f ${HOME}/.fonts/MaterialIcons-Regular.ttf ]]; then
+echo "Material Icons (309MB/2.1GB)"
+wget https://github.com/google/material-design-icons/archive/refs/tags/4.0.0.zip -q
+unzip 4.0.0.zip
+cp material-design-icons-4.0.0/font/MaterialIcons-Regular.ttf ${HOME}/.fonts
+cp material-design-icons-4.0.0/font/MaterialIconsOutlined-Regular.otf ${HOME}/.fonts
+cp material-design-icons-4.0.0/font/MaterialIconsRound-Regular.otf ${HOME}/.fonts
+cp material-design-icons-4.0.0/font/MaterialIconsSharp-Regular.otf ${HOME}/.fonts
+cp material-design-icons-4.0.0/font/MaterialIconsTwoTone-Regular.otf ${HOME}/.fonts
+rm -rf material-design-icons-4.0.0
+else
+echo "Skipping Material Icons"
+fi
+
+echo "JetBrainsMono"
+wget https://download.jetbrains.com/fonts/JetBrainsMono-2.225.zip -q
+unzip JetBrainsMono-2.225.zip
+cp fonts/ttf/*.ttf ${HOME}/.fonts/
+cp fonts/variable/*ttf ${HOME}/.fonts
+rm -rf fonts
+
+fc-cache
+#+end_src
+
+#+begin_src emacs-lisp :tangle no
+      (use-package emacs
+      :ensure nil
+      :init
+      (defun mav/get-font-size ()
+          "font size is calculated according to the size of the primary screen"
+          (let* (;; (command "xrandr | awk '/primary/{print sqrt( ($(nf-2)/10)^2 + ($nf/10)^2 )/2.54}'")
+                 (command "osascript -e 'tell application \"finder\" to get bounds of window of desktop' | cut -d',' -f3")
+                 (screen-width (string-to-number (shell-command-to-string command))))  ;;<
+            (if (> screen-width 2560) lc/laptop-font-size lc/laptop-font-size))) 
+
+        ;; Main typeface
+  ;;      (set-face-attribute 'default nil :font lc/default-font-family :height (mav/get-font-size))
+        ;; Set the fixed pitch face
+  ;;      (set-face-attribute 'fixed-pitch nil :font lc/default-font-family :height (mav/get-font-size))
+        ;; Set the variable pitch face
+  ;
+;      (set-face-attribute 'variable-pitch nil :font lc/variable-pitch-font-family :height (mav/get-font-size) :weight 'regular)
+
+        (set-face-attribute 'default nil :font "Inconsolata" :height 120 :weight 'regular)
+
+        ;; Set the fixed pitch face
+        (set-face-attribute 'fixed-pitch nil :font "Fira Code" :height 100 :weight 'light)
+
+        ;; Set the variable pitch face
+        (set-face-attribute 'variable-pitch nil :font "Fira Code" :height clinton/default-variable-font-size)  
+        )
+#+end_src
+
+Playing with fonts.
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil :font "Inconsolata" :height 120 :weight 'regular)
+    ;  (set-face-attribute 'default nil :font "EtBembo" :height 120)
+
+  ;    (set-face-attribute 'default nil :font "JetBrainsMono" :height 120)
+  ;    (set-face-attribute 'fixed-pitch nil :font "JetBrainsMono" :height 110)
+  ;;    (set-face-attribute 'variable-pitch nil :font "Cantarell" :height 120 :weight 'regular)
+  ;    (set-face-attribute 'variable-pitch nil :font "EtBembo" :height 160 :weight 'regular)
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package emojify
+    :config (if (display-graphic-p)
+                 (setq emojify-display-style 'image)
+               (setq emojify-display-style 'unicode)
+               )
+               (setq emojify-emoji-set "emojione-v2.2.6")
+;               (setq emojify-emoji-set "openmoji-v13-0")
+    :init (global-emojify-mode 1))
+#+end_src
