@@ -49,16 +49,18 @@ rm -rf fonts
 fc-cache
 #+end_src
 
+The following is for some reason executed when using the new org babel extraction code.
+
 #+begin_src emacs-lisp :tangle no
-      (use-package emacs
-      :ensure nil
-      :init
-      (defun mav/get-font-size ()
-          "font size is calculated according to the size of the primary screen"
-          (let* (;; (command "xrandr | awk '/primary/{print sqrt( ($(nf-2)/10)^2 + ($nf/10)^2 )/2.54}'")
-                 (command "osascript -e 'tell application \"finder\" to get bounds of window of desktop' | cut -d',' -f3")
-                 (screen-width (string-to-number (shell-command-to-string command))))  ;;<
-            (if (> screen-width 2560) lc/laptop-font-size lc/laptop-font-size))) 
+      ;(use-package emacs
+      ;:ensure nil
+      ;:init
+      ;(defun mav/get-font-size ()
+          ;"font size is calculated according to the size of the primary screen"
+          ;(let* (;; (command "xrandr | awk '/primary/{print sqrt( ($(nf-2)/10)^2 + ($nf/10)^2 )/2.54}'")
+                 ;(command "osascript -e 'tell application \"finder\" to get bounds of window of desktop' | cut -d',' -f3")
+                 ;(screen-width (string-to-number (shell-command-to-string command))))  ;;<
+            ;(if (> screen-width 2560) lc/laptop-font-size lc/laptop-font-size))) 
 
         ;; Main typeface
   ;;      (set-face-attribute 'default nil :font lc/default-font-family :height (mav/get-font-size))
@@ -68,19 +70,21 @@ fc-cache
   ;
 ;      (set-face-attribute 'variable-pitch nil :font lc/variable-pitch-font-family :height (mav/get-font-size) :weight 'regular)
 
-        (set-face-attribute 'default nil :font "Inconsolata" :height 120 :weight 'regular)
+        ;(set-face-attribute 'default nil :font "Inconsolata" :height 120 :weight 'regular)
 
         ;; Set the fixed pitch face
-        (set-face-attribute 'fixed-pitch nil :font "Fira Code" :height 100 :weight 'light)
+        ;(set-face-attribute 'fixed-pitch nil :font "Fira Code" :height 100 :weight 'light)
 
         ;; Set the variable pitch face
-        (set-face-attribute 'variable-pitch nil :font "Fira Code" :height clinton/default-variable-font-size)  
-        )
+        ;(set-face-attribute 'variable-pitch nil :font "Fira Code" :height 100)  
+        ;)
 #+end_src
 
 Playing with fonts.
 #+begin_src emacs-lisp
-  (set-face-attribute 'default nil :font "Inconsolata" :height 120 :weight 'regular)
+;  (set-face-attribute 'default nil :font "Droid Sans Mono" :height 120 :weight 'regular)
+;  (set-face-attribute 'default nil :font "Inconsolata" :height 120 :weight 'regular)
+
     ;  (set-face-attribute 'default nil :font "EtBembo" :height 120)
 
   ;    (set-face-attribute 'default nil :font "JetBrainsMono" :height 120)
