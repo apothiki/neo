@@ -1,0 +1,45 @@
+* Dev
+This is our attempt to mark org-block regions as readonly. The hope would be to be able to capture the error,
+switch to a special buffer and replay the keypress that caused the error in the first place.
+Don't know if it will work.
+
+#+BEGIN_SRC emacs-lisp
+(defun org-mark-readonly ()
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (let* ((element (org-element-at-point))
+            (begin (org-element-property :begin element))
+            (end (org-element-property :end element)))
+       (add-text-properties begin (- end 1) '(read-only t))))
+   "read_only")
+ (message "Made readonly!"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-remove-readonly ()
+    (interactive)
+    (org-map-entries
+     (lambda ()
+       (let* ((element (org-element-at-point))
+	      (begin (org-element-property :begin element))
+	      (end (org-element-property :end element))
+	      (inhibit-read-only t))
+	   (remove-text-properties begin (- end 1) '(read-only t))))
+       "read_only"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun set-region-writeable (begin end)
+  "Removes the read-only text property from the marked region."
+  ;; See http://stackoverflow.com/questions/7410125
+  (interactive "r")
+  (let ((modified (buffer-modified-p))
+        (inhibit-read-only t))
+    (remove-text-properties begin end '(read-only t))
+    (set-buffer-modified-p modified)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook 'org-mark-readonly)
+#+END_SRC
