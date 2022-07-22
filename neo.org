@@ -28,6 +28,7 @@ I mean, it is, but since it doesn't contain any elisp blocks, it is a no-op
 #+INCLUDE: "neo-init.org"
 
 #+INCLUDE: "neo-core.org"
+#+INCLUDE: "neo-restart.org"
 #+INCLUDE: "neo-litter.org"
 #+INCLUDE: "neo-completion.org"
 #+INCLUDE: "neo-git.org"
