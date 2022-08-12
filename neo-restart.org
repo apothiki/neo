@@ -1,3 +1,7 @@
+#+BEGIN_SRC emacs-lisp
+  (neo/enter-include "neo-restart.org")
+#+END_SRC
+
 * Emacs Startup
 When testing changes to the Emacs configuration it is useful to
 be able to restart Emacs from within Emacs. The following allows to

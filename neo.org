@@ -2,18 +2,19 @@
 #+DESCRIPTION: An org-babel based emacs configuration I find useful
 #+LANGUAGE: en
 #+PROPERTY: results silent
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
 
 * Introduction
-  This is my personal Emacs configuration. This is not the first time
-  I declare [[https://www.emacswiki.org/emacs/DotEmacsBankruptcy][Emacs bankrupcy]] and start over with a new emacs life.
+This is my personal Emacs configuration. This is not the first time
+I declare [[https://www.emacswiki.org/emacs/DotEmacsBankruptcy][Emacs bankrupcy]] and start over with a new emacs life.
 
-  It is not intended to be general or beginner-friendly. If you're a
-  beginner you'll probably be better off with one of the many emacs
-  configurations with batteries included.
+It is not intended to be general or beginner-friendly. If you're a
+beginner you'll probably be better off with one of the many emacs
+configurations with batteries included.
 
-  Also, my Emacs stays on for weeks or months at a time; I'm not
-  interested in reducing startup time or delaying loading of packages
-  until they're first used. It simply doesn't affect me.
+Also, my Emacs stays on for weeks or months at a time; I'm not
+interested in reducing startup time or delaying loading of packages
+until they're first used. It simply doesn't affect me.
 
 * Modules
 I keep my configuration in separate org-mode files. It would be
@@ -23,17 +24,31 @@ find that a single file is more prone to increase the entropy of the
 universe.
 
 ~neo-init.org~ is a bit special, it is ~#+INCLUDEd~ here so that it is
-exported to HTML when I publish this Emacs configuration, but is not really included.
-I mean, it is, but since it doesn't contain any elisp blocks, it is a no-op
+exported to HTML when I publish this Emacs configuration, but is not
+really included.  I mean, it is, but since it doesn't contain any
+elisp blocks, it is a no-op
 #+INCLUDE: "neo-init.org"
 
+#+begin_src emacs-lisp
+;; -*- coding: utf-8; lexical-binding: t -*-
+#+end_src
+
 #+INCLUDE: "neo-core.org"
+#+INCLUDE: "neo-packages.org"
+#+INCLUDE: "neo-reasonable-defaults.org"
+#+INCLUDE: "neo-general.org"
 #+INCLUDE: "neo-restart.org"
 #+INCLUDE: "neo-litter.org"
 #+INCLUDE: "neo-completion.org"
 #+INCLUDE: "neo-git.org"
 #+INCLUDE: "neo-ui.org"
+#+INCLUDE: "neo-snippets.org"
+#+INCLUDE: "neo-org.org"
+#+INCLUDE: "neo-project.org"
+#+INCLUDE: "neo-software-development.org"
+#+INCLUDE: "neo-fun.org"
 
 #+INCLUDE: "neo-app-kubernetes.org"
 
+#+INCLUDE: "neo-tosort.org"
 #+INCLUDE: "neo-todo.org"

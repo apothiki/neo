@@ -1,13 +1,18 @@
+#+BEGIN_SRC emacs-lisp
+  (neo/enter-include "neo-completion.org")
+#+END_SRC
+
 * Completion
 
 #+begin_src emacs-lisp
-     (use-package vertico
-       :init
-       (vertico-mode)
-       :config
-       (setq vertico-resize t)
-       (setq vertico-cycle t)
-       )
+  (use-package vertico
+;    :straight (:files (:defaults "extensions/*"))
+    :init
+    (vertico-mode)
+    :config
+    (setq vertico-resize t)
+    (setq vertico-cycle t)
+    )
 
 
 
@@ -18,29 +23,27 @@
   use-package for extensions.
   
 #+begin_src emacs-lisp
-    ;; (straight-use-package '( vertico :files (:defaults "extensions/*")
-    ;;                       :includes (vertico-buffer
-    ;;                                  vertico-directory
-    ;;                                  vertico-flat
-    ;;                                  vertico-indexed
-    ;;                                  vertico-mouse
-    ;;                                  vertico-quick
-    ;;                                  vertico-repeat
-    ;;                                  vertico-reverse)))
+     (straight-use-package '( vertico :files (:defaults "extensions/*")
+                           :includes (vertico-buffer
+                                      vertico-directory
+                                      vertico-flat
+                                      vertico-indexed
+                                      vertico-mouse
+                                      vertico-quick
+                                      vertico-repeat
+                                      vertico-reverse)))
 #+end_src
 
 #+begin_src emacs-lisp
-  ;; (use-package vertico-directory
-  ;;    :after vertico
-  ;;    ;; More convenient directory navigation commands
-  ;;    :bind (:map vertico-map
-  ;;            ("RET" . vertico-directory-enter)
-  ;;            ("DEL" . vertico-directory-delete-char)
-  ;;            ("M-DEL" . vertico-directory-delete-word))
-  ;;    ;; Tidy shadowed file names
-  ;;    :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
-
-
+  (use-package vertico-directory
+      :after vertico
+      ;; More convenient directory navigation commands
+      :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+      ;; Tidy shadowed file names
+      :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -274,4 +277,12 @@
 #+begin_src emacs-lisp
   (use-package consult-eglot
     :bind (("C-c ." . consult-eglot-symbols)))
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package all-the-icons-completion
+  :after (marginalia all-the-icons)
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  :init
+  (all-the-icons-completion-mode))
 #+end_src

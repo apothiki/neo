@@ -1,3 +1,7 @@
+#+BEGIN_SRC emacs-lisp
+  (neo/enter-include "neo-themes.org")
+#+END_SRC
+
 * Theme Management
 
 **** Theme Switching

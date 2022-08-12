@@ -1,7 +1,10 @@
-#+BEGIN_SRC sh :tangle SOMETHING
-pwd
+#+BEGIN_SRC emacs-lisp
+    (defun neo/enter-include (module-name)
+      (let* ((line (make-string 80 ?-))
+             (template (concat "\n" line "\n" "Config: %s" "\n" line "\n")))
+        (message template module-name)))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-    (message "core")
+      (neo/enter-include "neo-core.org")
 #+END_SRC

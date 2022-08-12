@@ -1,2 +1,46 @@
+#+BEGIN_SRC emacs-lisp
+  (neo/enter-include "neo-ui.org")
+#+END_SRC
+
+Maybe this should be in general
+
+#+begin_src emacs-lisp
+(use-package emacs
+  :init
+  (global-set-key (kbd "C-=") 'text-scale-increase)
+  (global-set-key (kbd "C--") 'text-scale-decrease)
+  )
+#+end_src
+
+* Dimming
+TODO dimmer-fraction need to be dependent on the theme: lighter themes
+need larger numbers. The default, 0.2 is ok for dark themes
+
+Popup buffers are not ideal either. Things like *Apropos*, I'd like them
+not to be dimmed when they pop up, but they should be dimmed when one
+goes away from them. Maybe the right behavior is not to exclude them,
+havng them selected with a 'q' binding for burying them.
+
+Autocompletion is also not perfect. It shouldn't dim the buffer we're
+completing from. Too distracting. Maybe the exclusion predicate would
+work for this.
+
+#+begin_src emacs-lisp
+  (use-package dimmer
+    :custom (dimmer-fraction 0.7)
+    :config
+    (add-to-list 'dimmer-buffer-exclusion-regexps "^\\*Warnings\\*$")
+    (add-to-list 'dimmer-buffer-exclusion-regexps "^\\*Apropos\\*$")
+    (dimmer-configure-magit)
+    (dimmer-configure-which-key)
+    (dimmer-mode))
+#+end_src
 #+INCLUDE: "neo-fonts.org"
 #+INCLUDE: "neo-themes.org"
+
+* Wide screens
+#+begin_src emacs-lisp
+(use-package centered-window
+  :custom
+  (cwm-centered-window-width 100))
+#+end_src

@@ -1,3 +1,7 @@
+#+BEGIN_SRC emacs-lisp
+  (neo/enter-include "neo-git.org")
+#+END_SRC
+
 * Git
 
 I use magit for interacting with git repositories. And I'm forcing

@@ -1,0 +1,20 @@
+* Support for Go
+
+#+begin_src emacs-lisp
+(use-package go-mode
+  :config
+  (setq gofmt-command "goimports")
+  :hook
+  (go-mode . (lambda ()
+	       (eglot-ensure)
+	       (setq tab-width 4)
+	       (setq indent-tabs-mode 1)
+	       (add-hook 'before-save-hook 'gofmt-before-save)))
+  )
+
+(setq-default eglot-workspace-configuration
+    '((:gopls .
+        ((staticcheck . t)
+         (matcher . "CaseSensitive")))))
+
+#+end_src
