@@ -44,7 +44,8 @@ elisp blocks, it is a no-op
 #+INCLUDE: "neo-ui.org"
 #+INCLUDE: "neo-snippets.org"
 #+INCLUDE: "neo-org.org"
-#+INCLUDE: "neo-project.org"
+#+INCLUDE: "neo-orgroam.org"
+#INCLUDE: "neo-project.org"
 #+INCLUDE: "neo-software-development.org"
 #+INCLUDE: "neo-fun.org"
 

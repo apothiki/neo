@@ -44,7 +44,7 @@ status page.
 I don't know if I'll use perspective, but whatever keeps the state of
 the desktop.
 
-#+begin_src emacs-lisp
+#+begin_src sh
   (setq dispatch-files "~/mlody/docs/dispatches")
 
   (org-ql-query

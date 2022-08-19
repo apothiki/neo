@@ -90,7 +90,7 @@
 
   (require 'ox-org)
   (with-temp-buffer
-    (insert-file-contents "neo.org")
+    (insert-file-contents "~/neo/neo.org")
     ;; TODO should export to a different file and move to this only if different
     ;; this would allow us to cache neo-flat.el.
     (let* ((flat-neo-config-dir (neo/litter-directory "neo"))
