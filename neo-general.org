@@ -138,3 +138,8 @@ And remember the
   (setq async-shell-command-buffer 'new-buffer))
 #+end_src
 
+#+begin_src emacs-lisp
+    (use-package auto-sudoedit
+      :config
+      (auto-sudoedit-mode))
+#+end_src

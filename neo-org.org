@@ -169,18 +169,32 @@ foreground gets recomputed.
 #+end_src 
 
 #+begin_src sh
-  cat > "${HOME}/.local/share/applications/org-protocol.desktop" << EOF
-  [Desktop Entry]
-  Name=org-protocol
-  Exec=emacsclient %u
-  Type=Application
-  Terminal=false
-  Categories=System;
-  MimeType=x-scheme-handler/org-protocol;
-  EOF
+cat > "${HOME}/.local/share/applications/org-protocol.desktop" << EOF
+[Desktop Entry]
+Name=org-protocol
+Exec=emacsclient %u
+Type=Application
+Terminal=false
+Categories=System;
+MimeType=x-scheme-handler/org-protocol;
+EOF
 
-  update-desktop-database ~/.local/share/applications/
+update-desktop-database ~/.local/share/applications/
 #+end_src
+
+To disable the “confirm” prompt in Chrome, you can also make Chrome show a checkbox to tick, so that the Org-Protocol Client app will be used without confirmation. To do this, run in a shell:
+
+#+begin_src sh
+sudo mkdir -p /etc/opt/chrome/policies/managed/
+sudo tee /etc/opt/chrome/policies/managed/external_protocol_dialog.json >/dev/null <<'EOF'
+{
+  "ExternalProtocolDialogShowAlwaysOpenCheckbox": true
+}
+EOF
+sudo chmod 644 /etc/opt/chrome/policies/managed/external_protocol_dialog.json
+#+end_src
+
+and then restart Chrome (for example, by navigating to ~chrome://restart~) to make the new policy take effect.
 
 #+begin_src emacs-lisp
   (setq org-capture-templates `(
@@ -211,19 +225,25 @@ Need to install the chrome extension from [[https://chrome.google.com/webstore/d
     :commands org-present)
 #+end_src
 **** Mermaid
+Install mermaid
+#+begin_src sh
+sudo npm install -g mermaid.cli
+#+end_src
+
 #+begin_src emacs-lisp
-  (use-package ob-mermaid)
+    (use-package ob-mermaid)
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((mermaid . t)
-     (scheme . t)))
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((mermaid . t)
+       (ditaa . t)
+       (scheme . t)))
 
-  (setq org-confirm-babel-evaluate nil)
-  (defun neo/org-confirm-babel-evaluate (lang body)
-    (not (string= lang "mermaid"))) 
+    (setq org-confirm-babel-evaluate nil)
+    (defun neo/org-confirm-babel-evaluate (lang body)
+      (not (string= lang "mermaid"))) 
 
-  (setq org-confirm-babel-evaluate 'neo/org-confirm-babel-evaluate)
+    (setq org-confirm-babel-evaluate 'neo/org-confirm-babel-evaluate)
 #+end_src
 
 #+begin_src mermaid :file test.png :pupeteer-config-file /home/mav/neo/puppeteer-config.json
@@ -234,6 +254,30 @@ sequenceDiagram
 
 #+RESULTS:
 [[file:test.png]]
+
+
+**** ditaa
+Install ditaa
+#+begin_src sh
+sudo apt-get install ditaa
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package elisp
+    (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
+    )
+#+end_src
+
+#+BEGIN_SRC ditaa :file /home/mav/org/images/hello-world.png
++--------------+
+|              |
+| Hello World! |
+|              |
++--------------+
+#+END_SRC
+
+#+RESULTS:
+[[file:/home/mav/org/images/hello-world.png]]
 
 
 * Dev

@@ -55,46 +55,28 @@ fc-cache
 
 The following is for some reason executed when using the new org babel extraction code.
 
-#+begin_src emacs-lisp :tangle no
-	(use-package emacs
-	:ensure nil
-	:init
-	(defun mav/get-font-size ()
-	    "font size is calculated according to the size of the primary screen"
-	    (let* (;; (command "xrandr | awk '/primary/{print sqrt( ($(nf-2)/10)^2 + ($nf/10)^2 )/2.54}'")
-		   (command "osascript -e 'tell application \"finder\" to get bounds of window of desktop' | cut -d',' -f3")
-		   (screen-width (string-to-number (shell-command-to-string command))))  ;;<
-	      (if (> screen-width 2560) lc/laptop-font-size lc/laptop-font-size))) 
+#+begin_src emacs-lisp
+  (use-package emacs
+    :ensure nil
+    :init
+    (defun neo/display-geometry ()
+      (let ((command "xrandr|grep primary|sed 's/^.* \\([0-9]\\+\\)x\\([0-9]\\+\\).* \\([0-9]\\+\\)mm.* \\([0-9]\\+\\)mm.*$/\\1 \\2 \\3 \\4/'"))
+        (mapcar #'string-to-number (split-string (shell-command-to-string command) " " t "[ ]+"))))
 
-	  ;; Main typeface
-    ;;      (set-face-attribute 'default nil :font lc/default-font-family :height (mav/get-font-size))
-	  ;; Set the fixed pitch face
-    ;;      (set-face-attribute 'fixed-pitch nil :font lc/default-font-family :height (mav/get-font-size))
-	  ;; Set the variable pitch face
-    ;
-  ;      (set-face-attribute 'variable-pitch nil :font lc/variable-pitch-font-family :height (mav/get-font-size) :weight 'regular)
-
-;	  (set-face-attribute 'default nil :font "Inconsolata" :height 120 :weight 'regular)
-	  (set-face-attribute 'default nil :font "Source Code Pro" :height 400 :weight 'regular)
-
-	  ;; Set the fixed pitch face
-;	  (set-face-attribute 'fixed-pitch nil :font "Fira Code" :height 100 :weight 'light)
-
-	  ;; Set the variable pitch face
-;	  (set-face-attribute 'variable-pitch nil :font "Fira Code" :height clinton/default-variable-font-size)  
-	  )
+    ;;; height here is in 1/10 of a pt. 10pt is 3.528mm. Not much make sense here. My laptop has ~266dpi in both X and Y.
+    (set-face-attribute 'default nil :font "Source Code Pro" :height 160 :weight 'regular) ; :horiz 266 :vert 266)
+    (set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :height 160 :weight 'regular); :horiz 266 :vert 266)
+    )
 #+end_src
 
-Playing with fonts.
 #+begin_src emacs-lisp
-;  (set-face-attribute 'default nil :font "Inconsolata" :height 120 :weight 'regular)
-  (set-face-attribute 'default nil :font "Source Code Pro" :height 200 :weight 'regular)
-    ;  (set-face-attribute 'default nil :font "EtBembo" :height 120)
-
-  ;    (set-face-attribute 'default nil :font "JetBrainsMono" :height 120)
-  ;    (set-face-attribute 'fixed-pitch nil :font "JetBrainsMono" :height 110)
-  ;;    (set-face-attribute 'variable-pitch nil :font "Cantarell" :height 120 :weight 'regular)
-  ;    (set-face-attribute 'variable-pitch nil :font "EtBembo" :height 160 :weight 'regular)
+  (use-package mixed-pitch
+      :hook
+      (text-mode . mixed-pitch-mode)
+      :config
+      (set-face-attribute 'default nil :font "Source Code Pro" :height 160)
+      (set-face-attribute 'fixed-pitch nil :font "DejaVu Sans Mono")
+      (set-face-attribute 'variable-pitch nil :font "DejaVu Sans"))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -109,19 +91,9 @@ Playing with fonts.
 #+end_src
 
 #+begin_src emacs-lisp
-  (ignore-errors (set-frame-font "JuliaMono-12"))
+ ; (ignore-errors (set-frame-font "JuliaMono-12"))
 #+end_src
 
-#+begin_src emacs-lisp
-  (use-package mixed-pitch
-      :hook
-      (text-mode . mixed-pitch-mode)
-      :config
-;      (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 200)
-      (set-face-attribute 'default nil :font "Source Code Pro" :height 200)
-      (set-face-attribute 'fixed-pitch nil :font "DejaVu Sans Mono")
-      (set-face-attribute 'variable-pitch nil :font "DejaVu Sans"))
-#+end_src
 ** Icons
 
 Remember to run ~all-the-icons-install-fonts~

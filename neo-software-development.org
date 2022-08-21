@@ -1,5 +1,10 @@
 * Software Development
 
+** Languages
+#+INCLUDE: "neo-lang-go.org"
+#+INCLUDE: "neo-lang-elisp.org"
+#+INCLUDE: "neo-lang-misc.org"
+
 ** Language Server Protocol
 #+begin_src emacs-lisp
 (use-package eglot)
@@ -55,7 +60,5 @@
 (use-package bazel)
 #+end_src
 
-** Languages
-#+INCLUDE: "neo-lang-go.org"
-#+INCLUDE: "neo-lang-elisp.org"
-#+INCLUDE: "neo-lang-misc.org"
+
+
