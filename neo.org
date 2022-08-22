@@ -49,6 +49,7 @@ elisp blocks, it is a no-op
 #+INCLUDE: "neo-software-development.org"
 #+INCLUDE: "neo-fun.org"
 
+#INCLUDE: "neo-app-shell.org"
 #+INCLUDE: "neo-app-kubernetes.org"
 
 #+INCLUDE: "neo-tosort.org"
